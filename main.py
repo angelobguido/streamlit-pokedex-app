@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import app.pokemon as pokemon
+import app.pokemon_db as pokemon
 
 st.title('Pokedex')
 st.header('Pokemons')
@@ -37,6 +37,7 @@ if add_pokemon_button:
             "description": new_pokemon_description
         })
         st.success(f"Pokemon '{new_pokemon_name}' adicionado com sucesso!")
+        st.rerun()
     else:
         st.warning("Por favor, preencha todos os campos.")
 
@@ -53,12 +54,12 @@ if update_pokemon_button:
             if not update_pokemon_description:
                 update_pokemon_description = pokemon_to_update["description"]
         pokemon.update_pokemon(update_pokemon_name, {
-            "name": update_pokemon_name,
             "image": update_pokemon_image,
             "type": update_pokemon_type,
             "description": update_pokemon_description
         })
         st.success(f"Pokemon '{update_pokemon_name}' atualizado com sucesso!")
+        st.rerun()
     else:
         st.warning("Por favor, preencha o nome do pokemon que deseja atualizar.")
 
@@ -66,6 +67,7 @@ if delete_pokemon_button:
     if delete_pokemon_name:
         pokemon.delete_pokemon(delete_pokemon_name)
         st.success(f"Pokemon '{delete_pokemon_name}' deletado com sucesso!")
+        st.rerun()
     else:
         st.warning("Por favor, preencha o nome do pokemon que deseja deletar.")
 
@@ -91,5 +93,5 @@ for index, p in enumerate(pokemons):
         with st.container(border=True):
             st.subheader(p['name'])
             st.image(p['image'], width=150, use_column_width='auto') 
-            st.write(f"**Type:** {p['type']}")
+            st.write(f"**Tipo:** {p['type']}")
             st.write(p['description'])

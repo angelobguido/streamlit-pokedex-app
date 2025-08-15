@@ -44,13 +44,13 @@ def add_pokemon(pokemon: dict):
 
 def delete_pokemon(name: str):
     global pokemons
-    pokemons = [pokemon for pokemon in pokemons if pokemon["name"].lower() != name.lower()]
+    pokemons.remove(get_pokemon(name))
     return {"message": "Pokemon deleted successfully"}
 
 def update_pokemon(name: str, updated_pokemon: dict):
     global pokemons
     for i, pokemon in enumerate(pokemons):
         if pokemon["name"].lower() == name.lower():
-            pokemons[i] = updated_pokemon
+            pokemons[i] = pokemons[i] | updated_pokemon
             return updated_pokemon
     return None
